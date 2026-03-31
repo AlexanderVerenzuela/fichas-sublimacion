@@ -1,209 +1,296 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<title>Ficha Técnica</title>
+  <meta charset="UTF-8">
+  <title>Ficha Técnica</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-<style>
-body { background: #e5e5e5;}
+  <style>
+    body {
+      background: #e5e5e5;
+    }
 
 
-.form-control {
-    border: 1px solid black;
-}
+    .form-control {
+      border: 1px solid black;
+    }
 
-/* FICHA */
-.ficha {
-  width: 800px;
-  margin: auto;
-  background: white;
-  padding: 20px;
-}
+    /* FICHA */
+    .ficha {
+      position: relative;
+      width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+    }
 
-/* BARRA NEGRA */
-.barra {
-  font-weight: bold;
-  padding: 8px;
-}
+    .marca-agua {
+      position: absolute;
+      top: 0px;
+      right: 20px;
+      width: 100px;
+      pointer-events: none;
+    }
 
-/* SECCIONES */
-.seccion {
-  border: 1px solid black;
-  padding: 6px;
-  margin-top: 6px;
-}
+    /* BARRA NEGRA */
+    .barra {
+      font-weight: bold;
+      padding: 8px;
+    }
 
-/* TABLA */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+    /* SECCIONES */
+    .seccion {
+      border: 1px solid black;
+      padding: 6px;
+      margin-top: 6px;
+    }
 
-th, td {
-  border: 1px solid black;
-  padding: 5px;
-  text-align: center;
-}
+    /* TABLA */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-th {
-  background: #dcdcdc;
-}
+    th,
+    td {
+      border: 1px solid black;
+      padding: 5px;
+      text-align: center;
+    }
 
-/* RESUMEN */
-.resumen {
-  border: 1px solid black;
-  padding: 6px;
-  text-align: right;
-  font-weight: bold;
-}
+    th {
+      background: #dcdcdc;
+    }
 
-/* TOTAL */
-.total {
-  text-align: center;
-  padding: 10px;
-  font-weight: bold;
-  margin-top: 8px;
-}
+    /* RESUMEN */
+    .resumen {
+      border: 1px solid black;
+      padding: 6px;
+      text-align: right;
+      font-weight: bold;
+    }
 
-.preview-img {
-  max-width: 180px;
-  height: auto;
-  display: block;
-  margin: 10px auto;
-}
+    /* TOTAL */
+    .total {
+      text-align: center;
+      padding: 10px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
 
-/* PRINT */
-@media print {
-  .no-print { display: none; }
-  body { background: white; }
-  .ficha { width: 100%; }
-}
+    .preview-img {
+      max-width: 480px;
+      max-height: 480px;
+      height: auto;
+      display: block;
+      margin: 10px auto;
+    }
 
-* {
-    font-size: 16px;
-}
-</style>
+    /* PRINT */
+    @media print {
+      .no-print {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      .ficha {
+        width: 100%;
+      }
+    }
+
+    * {
+      font-size: 16px;
+    }
+  </style>
 
 </head>
 
 <body>
 
-<div class="container my-4 no-print">
+  <div class="container my-4 no-print">
 
-<h4>Panel</h4>
+    <h4>Panel</h4>
 
-<div class="row">
+    <div class="row">
 
-<div class="col-md-4">
+      <div class="col-md-4">
 
-<input class="form-control mb-2" id="cliente" placeholder="Cliente">
-<input class="form-control mb-2" id="telefono" placeholder="Teléfono">
-<input type="date" class="form-control mb-2" id="fecha" placeholder="Fecha">
-<input class="form-control mb-2" id="diseñador" placeholder="Diseñador">
-<input class="form-control mb-2" id="telap" placeholder="Tela de polo">
-<input class="form-control mb-2" id="telas" placeholder="Tela de short">
-<input class="form-control mb-2" id="obs" placeholder="Observaciones">
-<input class="form-control mb-2" id="modelo" placeholder="Modelo">
+        <input class="form-control mb-2" id="cliente" placeholder="Cliente">
+        <input class="form-control mb-2" id="telefono" placeholder="Teléfono">
+        <input type="date" class="form-control mb-2" id="fecha" placeholder="Fecha">
+        <input class="form-control mb-2" id="diseñador" placeholder="Diseñador">
+        <div style="display: flex; justify-content: space-between;">
+          <input style="width: 48%;" class="form-control mb-2 " id="telap" placeholder="Tela de polo">
+          <input style="width: 48%;" type="number" step="0.1" class="form-control mb-2" id="metrajep"
+            placeholder="Metraje de polos">
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <input style="width: 48%;" class="form-control mb-2 " id="telas" placeholder="Tela de short">
+          <input style="width: 48%;" type="number" step="0.1" class="form-control mb-2" id="metrajes"
+            placeholder="Metraje de shorts">
+        </div>
+        <div style="display: flex; justify-content: end;">
+          <label for="rib" style="align-self: center; margin-right: 15px;">RIB =</label>
+          <input style="width: 48%; " type="number" step="0.1" class="form-control mb-2" id="rib"
+            placeholder="Metraje de rib">
+        </div>
+        <label for="">METRAJE TOTAL</label>
+        <input class="form-control mb-2" id="metraje" placeholder="Metraje">
 
-<h6>Servicios</h6>
-<label><input type="checkbox" id="diseno"> Diseño</label><br>
-<label><input type="checkbox" id="cuadre"> Cuadre</label><br>
-<label><input type="checkbox" id="impresion"> Impresión</label><br>
-<label><input type="checkbox" id="planchado"> Planchado</label><br>
-<label><input type="checkbox" id="laser"> Láser</label> <br>
+        <input class="form-control mb-2" id="obs" placeholder="Observaciones">
+        <input class="form-control mb-2" id="modelo" placeholder="Modelo">
 
-<input class="form-control mb-2" id="cuello" placeholder="Cuello">
-<input class="form-control mb-2" id="manga" placeholder="Manga">
+        <h6>Servicios</h6>
+        <label><input type="checkbox" id="diseno"> Diseño</label><br>
+        <label><input type="checkbox" id="cuadre"> Cuadre</label><br>
+        <label><input type="checkbox" id="impresion"> Impresión</label><br>
+        <label><input type="checkbox" id="planchado"> Planchado</label><br>
+        <label><input type="checkbox" id="laser"> Láser</label> <br>
 
-<label for="imagen">Agregar Diseño</label>
-<input type="file" class="form-control mb-2" id="imagen" accept="image/*">
+        <input class="form-control mb-2" id="cuello" placeholder="Cuello">
+        <input class="form-control mb-2" id="manga" placeholder="Manga">
 
-<label for="">Subir Excel</label>
-<input type="file" class="form-control mb-2" id="excel" accept=".xlsx, .xls">
+        <label for="imagen">Agregar Diseño</label>
+        <input type="file" class="form-control mb-2" id="imagen" accept="image/*">
 
-<hr>
+        <label for="">Subir Excel</label>
+        <input type="file" class="form-control mb-2" id="excel" accept=".xlsx, .xls">
 
-<h6>Jugador</h6>
-<input class="form-control mb-1" id="nombre" placeholder="Nombre">
-<input class="form-control mb-1" id="talla" placeholder="Talla">
-<input class="form-control mb-1" id="numero" placeholder="Número">
-<input class="form-control mb-1" id="corte" placeholder="Corte">
-<input class="form-control mb-1" id="pc" placeholder="Polo/Conjunto">
+        <hr>
 
-<button class="btn btn-primary w-100" onclick="agregarJugador()">Agregar / Editar</button>
+        <h6>Jugador</h6>
+        <input class="form-control mb-1" id="nombre" placeholder="Nombre">
 
-</div>
+        <select class="form-control mb-1" id="talla">
+          <option value="">Seleccionar talla</option>
+          <option value="2">2</option>
+          <option value="4">4</option>
+          <option value="6">6</option>
+          <option value="8">8</option>
+          <option value="10">10</option>
+          <option value="12">12</option>
+          <option value="14">14</option>
+          <option value="16">16</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+          <option value="XXL">XXL</option>
+        </select>
 
-<div class="col-md-8">
+        <input class="form-control mb-1" id="numero" placeholder="Número">
 
-<table class="table table-bordered">
-<thead>
-<tr>
-<th>Nombre</th>
-<th>Talla</th>
-<th>N°</th>
-<th>Corte</th>
-<th>Polo/Conjunto</th>
-</tr>
-</thead>
-<tbody id="tablaJugadores"></tbody>
-</table>
+        <select class="form-control mb-1" id="corte">
+          <option value="">Seleccionar corte</option>
+          <option value="RECTO">RECTO</option>
+          <option value="PRINCESA">PRINCESA</option>
+        </select>
 
-<button class="btn btn-success" onclick="generarVista()">Vista</button>
-<button class="btn btn-danger" onclick="window.print()">PDF</button>
+        <select class="form-control mb-1" id="pc">
+          <option value="">Seleccionar tipo</option>
+          <option value="POLO">POLO</option>
+          <option value="CONJUNTO">CONJUNTO</option>
+        </select>
 
-</div>
+        <button class="btn btn-primary w-100" onclick="agregarJugador()">Agregar / Editar</button>
 
-</div>
-</div>
+      </div>
 
-<!-- FICHA -->
-<div id="preview" class="ficha"></div>
+      <div class="col-md-8">
 
-<script>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Talla</th>
+              <th>N°</th>
+              <th>Corte</th>
+              <th>Polo/Conjunto</th>
+            </tr>
+          </thead>
+          <tbody id="tablaJugadores"></tbody>
+        </table>
 
-let jugadores = [];
-let editIndex = null;
-let imagenBase64 = "";
+        <button class="btn btn-success" onclick="generarVista()">Vista</button>
+        <button class="btn btn-danger" onclick="window.print()">PDF</button>
 
-/* IMAGEN */
-imagen.onchange = e=>{
-  const reader = new FileReader();
-  reader.onload = ()=> imagenBase64 = reader.result;
-  reader.readAsDataURL(e.target.files[0]);
-};
+      </div>
 
-/* AGREGAR / EDITAR */
-function agregarJugador(){
+    </div>
+  </div>
 
-  const jugador = {
-    nombre: nombre.value,
-    talla: talla.value,
-    numero: numero.value,
-    corte: corte.value,
-    pc: pc.value
-  };
+  <!-- FICHA -->
+  <div id="preview" class="ficha"></div>
 
-  if(editIndex !== null){
-    jugadores[editIndex] = jugador;
-    editIndex = null;
-  } else {
-    jugadores.push(jugador);
-  }
+  <script>
 
-  limpiarInputs();
-  renderTabla();
-}
+    function formatearFecha(f) {
+      if (!f) return "";
+      const [y, m, d] = f.split("-");
+      return `${d}/${m}/${y}`;
+    }
 
-/* TABLA */
-function renderTabla(){
-  tablaJugadores.innerHTML = "";
+    let mp = parseFloat(metrajep.value) || 0;
+    let ms = parseFloat(metrajes.value) || 0;
+    let ri = parseFloat(rib.value) || 0;
 
-  jugadores.forEach((j,i)=>{
-    tablaJugadores.innerHTML += `
+    let totalMetraje = mp + ms + ri;
+
+    [metrajep, metrajes, rib].forEach(input => {
+      input.addEventListener("input", () => {
+        let mp = parseFloat(metrajep.value) || 0;
+        let ms = parseFloat(metrajes.value) || 0;
+        let ri = parseFloat(rib.value) || 0;
+        metraje.value = (mp + ms + ri).toFixed(2);
+      });
+    });
+
+
+    let jugadores = [];
+    let editIndex = null;
+    let imagenBase64 = "";
+
+    /* IMAGEN */
+    imagen.onchange = e => {
+      const reader = new FileReader();
+      reader.onload = () => imagenBase64 = reader.result;
+      reader.readAsDataURL(e.target.files[0]);
+    };
+
+    /* AGREGAR / EDITAR */
+    function agregarJugador() {
+
+      const jugador = {
+        nombre: nombre.value,
+        talla: talla.value,
+        numero: numero.value,
+        corte: corte.value,
+        pc: pc.value
+      };
+
+      if (editIndex !== null) {
+        jugadores[editIndex] = jugador;
+        editIndex = null;
+      } else {
+        jugadores.push(jugador);
+      }
+
+      limpiarInputs();
+      renderTabla();
+    }
+
+    /* TABLA */
+    function renderTabla() {
+      tablaJugadores.innerHTML = "";
+
+      jugadores.forEach((j, i) => {
+        tablaJugadores.innerHTML += `
     <tr>
       <td>${j.nombre || ""}</td>
       <td>${j.talla || ""}</td>
@@ -215,43 +302,43 @@ function renderTabla(){
         <button class="btn btn-sm btn-danger" onclick="eliminar(${i})">X</button>
       </td>
     </tr>`;
-  });
-}
+      });
+    }
 
-/* EDITAR */
-function editar(i){
-  const j = jugadores[i];
-  nombre.value = j.nombre;
-  talla.value = j.talla;
-  numero.value = j.numero;
-  corte.value = j.corte;
-  pc.value = j.pc;
-  editIndex = i;
-}
+    /* EDITAR */
+    function editar(i) {
+      const j = jugadores[i];
+      nombre.value = j.nombre;
+      talla.value = j.talla;
+      numero.value = j.numero;
+      corte.value = j.corte;
+      pc.value = j.pc;
+      editIndex = i;
+    }
 
-/* ELIMINAR */
-function eliminar(i){
-  jugadores.splice(i,1);
-  renderTabla();
-}
+    /* ELIMINAR */
+    function eliminar(i) {
+      jugadores.splice(i, 1);
+      renderTabla();
+    }
 
-/* LIMPIAR */
-function limpiarInputs(){
-  nombre.value="";
-  talla.value="";
-  numero.value="";
-  corte.value="";
-  pc.value="";
-}
+    /* LIMPIAR */
+    function limpiarInputs() {
+      nombre.value = "";
+      talla.value = "";
+      numero.value = "";
+      corte.value = "";
+      pc.value = "";
+    }
 
-/* GENERAR VISTA */
-function generarVista(){
+    /* GENERAR VISTA */
+    function generarVista() {
 
-  let filas="";
-  let resumen={};
+      let filas = "";
+      let resumen = {};
 
-  jugadores.forEach(j=>{
-    filas+=`
+      jugadores.forEach(j => {
+        filas += `
     <tr>
       <td>${j.nombre || ""}</td>
       <td>${j.talla || ""}</td>
@@ -260,30 +347,32 @@ function generarVista(){
       <td>${j.pc || ""}</td>
     </tr>`;
 
-    resumen[j.talla]=(resumen[j.talla]||0)+1;
-  });
+        resumen[j.talla] = (resumen[j.talla] || 0) + 1;
+      });
 
-  let resumenTxt=Object.entries(resumen)
-    .map(([t,c])=>`${t}: ${c}`)
-    .join(" | ");
+      let resumenTxt = Object.entries(resumen)
+        .map(([t, c]) => `${t}: ${c}`)
+        .join(" | ");
 
-    let servicios = [];
+      let servicios = [];
 
-if(diseno.checked) servicios.push("Diseño");
-if(cuadre.checked) servicios.push("Cuadre");
-if(impresion.checked) servicios.push("Impresión");
-if(planchado.checked) servicios.push("Planchado");
-if(laser.checked) servicios.push("Láser");
+      if (diseno.checked) servicios.push("Diseño");
+      if (cuadre.checked) servicios.push("Cuadre");
+      if (impresion.checked) servicios.push("Impresión");
+      if (planchado.checked) servicios.push("Planchado");
+      if (laser.checked) servicios.push("Láser");
 
-let serviciosHTML = servicios.length 
-  ? servicios.join(" | ") 
-  : "";
+      let serviciosHTML = servicios.length
+        ? servicios.join(" | ")
+        : "";
 
-  preview.innerHTML=`
+      preview.innerHTML = `
+
+      <img src="/LA CASA BLACK.PNG" class="marca-agua">
 
   <div class="barra">MODELO: ${modelo.value}</div>
 
-  <div><b>CLIENTE:</b> ${cliente.value} | <b>FECHA:</b> ${fecha.value}</div>
+  <div><b>CLIENTE:</b> ${cliente.value} | <b>FECHA:</b> ${formatearFecha(fecha.value)}</div>
   <div><b>DISEÑADOR:</b> ${diseñador.value} | <b>TEL:</b> ${telefono.value}</div>
   <div><b>TELA DE POLOS:</b> ${telap.value} | <b>TELA DE SHORTS:</b> ${telas.value}</div>
 
@@ -315,49 +404,67 @@ let serviciosHTML = servicios.length
   </div>
 
   <div class="total">
-    TOTAL GENERAL DE PEDIDO: ${jugadores.length} PIEZAS
-  </div>
+
+          ${telap.value && metrajep.value ?
+          `TOTAL DE TELA ${telap.value}: ${metrajep.value} METROS <br>`
+          : ""}
+
+          ${telas.value && metrajes.value ?
+          `TOTAL DE TELA ${telas.value}: ${metrajes.value} METROS <br>`
+          : ""}
+
+          ${rib.value ?
+          `TOTAL DE RIB: ${rib.value} METROS <br>`
+          : ""}
+
+  TOTAL GENERAL DE PEDIDO: ${metraje.value || ""} METROS
+
+</div>
   `;
-}
+    }
 
-/* EXCEL */
-excel.addEventListener('change', function(e){
+    /* EXCEL */
+    excel.addEventListener('change', function (e) {
 
-  const file = e.target.files[0];
-  const reader = new FileReader();
+      const file = e.target.files[0];
+      const reader = new FileReader();
 
-  reader.onload = function(evt){
+      reader.onload = function (evt) {
 
-    const data = new Uint8Array(evt.target.result);
-    const workbook = XLSX.read(data,{type:'array'});
-    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        const data = new Uint8Array(evt.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
 
-    const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+        const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-    // eliminar encabezado
-    rows.shift();
+        // eliminar encabezado
+        rows.shift();
 
-    rows.forEach(row => {
+        rows.forEach(row => {
 
-      jugadores.push({
-        nombre: row[0] || "",
-        talla: row[1] || "",
-        numero: row[2] || "",
-        corte: row[3] || "",
-        pc: row[4] || ""
-      });
+          jugadores.push({
+            nombre: row[0] || "",
+            talla: row[1] || "",
+            numero: row[2] || "",
+            corte: row[3] || "",
+            pc: row[4] || ""
+          });
 
+        });
+
+        renderTabla();
+      };
+
+      reader.readAsArrayBuffer(file);
     });
 
-    renderTabla();
-  };
+    window.addEventListener("DOMContentLoaded", () => {
+      const hoy = new Date().toISOString().split("T")[0];
+      fecha.value = hoy;
+    });
 
-  reader.readAsArrayBuffer(file);
-});
-
-
-
-</script>
+  </script>
 
 </body>
+
 </html>
